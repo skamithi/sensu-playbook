@@ -16,3 +16,5 @@
       with_items:
         - "sensu"
 
+    - name: install netshow (remove later)
+      apt: name="netshow"
