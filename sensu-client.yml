@@ -1,21 +1,29 @@
 ---
 - hosts: switches
   remote_user: root
+  tags: sensu_clients
   tasks:
     - name: add sensu related apt keys
       apt_key: url="{{item}}"
+      tags: install_sensu
       with_items:
         - "http://repositories.sensuapp.org/apt/pubkey.gpg"
 
     - name: add sensu related repos
       apt_repository: repo="{{item}}" update_cache=yes
+      tags: install_sensu
       with_items:
         - "deb  http://repositories.sensuapp.org/apt sensu main"
 
     - name: install sensu related packages
       apt: name="{{item}}"
+      tags: install_sensu
       with_items:
         - "sensu"
+
+    - name: install sensu plugins
+      tags: copy_sensu_plugins
+      copy: src=plugins  dest=/etc/sensu/ mode=755 directory_mode=0750 owner=sensu backup=yes
 
     - name: install netshow (remove later)
       apt: name="netshow"
