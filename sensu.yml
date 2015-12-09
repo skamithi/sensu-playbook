@@ -1,20 +1,2 @@
----
-- hosts: all
-  tasks:
-    - name: add sensu related apt keys
-      apt_key: url="{{item}}"
-      with_items:
-        - "http://repositories.sensuapp.org/apt/pubkey.gpg"
-
-    - name: add sensu related repos
-      apt_repository: repo="{{item}}" update_cache=yes
-      with_items:
-        - "deb  http://repositories.sensuapp.org/apt sensu main"
-
-    - name: install sensu related packages
-      apt: name="{{item}}"
-      with_items:
-        - "sensu"
-
-    - name: install netshow (remove later)
-      apt: name="netshow"
+- include: sensu-client.yml tags=sensu_client
+- include: sensu-server.yml tags=sensu_server

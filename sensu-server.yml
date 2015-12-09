@@ -1,0 +1,29 @@
+- hosts: monitor-vm
+  sudo: True
+  tags: create_containers
+  remote_user: cumulus
+  tasks:
+    - name: make sure docker deb is not installed
+      apt:  name="docker-python" state=present
+      ignore_errors: yes
+
+    - name: make sure pip is installed
+      apt: name=python-pip state=present
+
+    - name: make sure required Pypi packages are installed
+      pip: name={{ item }} state=present
+      with_items:
+        - docker-py==1.2.3
+        - six>=1.4.0
+
+    - name: run sensu container
+      docker:
+        name: sensu1
+        image: "cumulus/sensu"
+        command: "/usr/bin/supervisord"
+        state: started
+        expose:
+          - 3000
+          - 4567
+          - 5671
+          - 15672
