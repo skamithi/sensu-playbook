@@ -50,7 +50,7 @@ class CheckBGPPeers < Sensu::Plugin::Check::CLI
     default: 1
 
   def run
-    cmd_to_run = "cl-bgp summary show json"
+    cmd_to_run = "sudo cl-bgp summary show json"
     json_output = JSON.parse(IO.popen(cmd_to_run).read())
     neighbors = json_output.fetch('peers')
     peers_not_working_count = 0

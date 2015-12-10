@@ -51,7 +51,7 @@ class CheckBGPRoutes < Sensu::Plugin::Check::CLI
     default: 0
 
   def run
-    cmd_to_run = "cl-bgp route show json"
+    cmd_to_run = "sudo cl-bgp route show json"
     json_output = JSON.parse(IO.popen(cmd_to_run).read())
     routes = json_output.fetch('routes').keys()
     if routes.length <= config[:min_routes].to_i
