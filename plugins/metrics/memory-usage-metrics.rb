@@ -82,7 +82,7 @@ class MemoryMetrics < Sensu::Plugin::Metric::CLI::JSON
       # the one to drop here is "used" because "free" will
       # stack up neatly to 100% with all the others (except swapUsed)
       # #YELLOW
-      memp["#{config[:scheme]}_#{k}"] = (100.0 * mem[k] / mem['total']).round if k != 'total' && k !~ /swap/ && k != 'used'
+      memp["#{config[:scheme]}_#{k}"] = (100.0 * mem[k] / mem['total']).round if k != 'total' && k !~ /swap/
 
       # with percentages, swapUsed and swapFree are exactly complementary
       # no need to have both

@@ -102,8 +102,8 @@ class CpuMetrics < Sensu::Plugin::Metric::CLI::JSON
     end
 
     outputstats = {}
-    outputstats[:total] = (cpu_usage * 100).round / 100.0
-    cpu_stats.each_index { |i| outputstats[metrics[i]] = (cpu_stats[i] * 100).round / 100.0 }
+    outputstats[:cpu_total] = (cpu_usage * 100).round / 100.0
+    cpu_stats.each_index { |i| outputstats["cpu_#{metrics[i]}"] = (cpu_stats[i] * 100).round / 100.0 }
     output outputstats.to_json
     ok
   end

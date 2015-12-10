@@ -100,7 +100,6 @@ class DiskUsageMetrics < Sensu::Plugin::Metric::CLI::JSON
     `df -PB#{config[:block_size]} #{config[:local] ? '-l' : ''}`.split("\n").drop(1).each do |line|
       _, _, used, avail, used_p, mnt = line.split
       diskspace = {}
-      prefix_str = 'disk_usage'
       unless %r{/sys|/dev|/run}.match(mnt)
         next if config[:ignore_mnt] && config[:ignore_mnt].find { |x| mnt.match(x) }
         next if config[:include_mnt] && !config[:include_mnt].find { |x| mnt.match(x) }
@@ -115,7 +114,7 @@ class DiskUsageMetrics < Sensu::Plugin::Metric::CLI::JSON
         mnt = mnt.gsub '/', delim
         diskspace[[config[:scheme],  'used'].join('_')] = used.gsub(config[:block_size], '').to_i
         diskspace[[config[:scheme],  'avail'].join('_')] = avail.gsub(config[:block_size], '').to_i
-        diskspace[[config[:scheme],  'used_percentage'].join('_')] = used_p.gsub(config[:block_size], '').to_i
+        diskspace[[config[:scheme], 'used_percentage'].join('_')] = used_p.gsub(config[:block_size], '').to_i
         output diskspace
       end
     end
