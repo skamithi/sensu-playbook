@@ -1,6 +1,6 @@
 {
   "client": {
-    "name": "{{ ansible_hostname }}",
+    "name": "{{ ansible_hostname | replace('-', '_') }}",
     "address": "{{ ansible_eth0.ipv4.address }}",
     "subscriptions": [
       "routing", "switches"
