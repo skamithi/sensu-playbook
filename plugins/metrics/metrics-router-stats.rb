@@ -96,7 +96,7 @@ class RoutingProtocolMetrics < Sensu::Plugin::Metric::CLI::JSON
   # this cmd_to_run should work with both OSPF and BGP. Testing only with BGP
   # ipv4.
   def send_route_stats
-    cmd_to_run = "cl-#{config[:route_protocol]} route show json"
+    cmd_to_run = "sudo cl-#{config[:route_protocol]} route show json"
     json_output = JSON.parse(IO.popen(cmd_to_run).read())
     routes = json_output.fetch('routes').keys()
     output = {
@@ -109,7 +109,7 @@ class RoutingProtocolMetrics < Sensu::Plugin::Metric::CLI::JSON
 
   # Only works with BGP ipv4 right now
   def send_neighbor_stats
-    cmd_to_run = "cl-#{config[:route_protocol]} summary show json"
+    cmd_to_run = "sudo cl-#{config[:route_protocol]} summary show json"
     json_output = JSON.parse(IO.popen(cmd_to_run).read())
     neighbors = json_output.fetch('peers')
     peers_working = []
