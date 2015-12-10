@@ -55,7 +55,7 @@ class CheckBGPRoutes < Sensu::Plugin::Check::CLI
     json_output = JSON.parse(IO.popen(cmd_to_run).read())
     routes = json_output.fetch('routes').keys()
     if routes.length <= config[:min_routes].to_i
-      critical "Number of BGP Routes Too Low - #{routes.length} "
+      critical "Number of BGP Routes Too Low - #{routes.length} Threshold: #{config[:min_routes]}"
     end
     ok
   end

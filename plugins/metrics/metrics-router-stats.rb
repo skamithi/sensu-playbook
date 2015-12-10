@@ -123,7 +123,7 @@ class RoutingProtocolMetrics < Sensu::Plugin::Metric::CLI::JSON
       end
     end
     output = {
-      'total_peer_count' => json_output.fetch('total-peers'),
+      'total_peer_count' => json_output.fetch('totalPeers'),
       'peers_working' => peers_working,
       'peers_working_count' => peers_working.count,
       'peers_failed_state' => peers_failed_state,

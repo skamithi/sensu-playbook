@@ -60,7 +60,7 @@ class CheckBGPPeers < Sensu::Plugin::Check::CLI
       end
     end
     if peers_not_working_count >= config[:min_down_peers].to_i
-      critical "Number of Non Established BGP Peers - #{peers_not_working_count} "
+      critical "Number of Non Established BGP Peers - #{peers_not_working_count} Threshold: #{config[:min_down_peers]}"
     end
     ok
   end
