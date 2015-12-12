@@ -1,8 +1,0 @@
-{
-  "handlers": {
-    "test2": {
-      "type": "pipe",
-      "command": "/opt/sensu/embedded/bin/ruby /etc/sensu/handlers/metrics/test.rb"
-    }
-  }
-}
