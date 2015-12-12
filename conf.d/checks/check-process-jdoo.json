@@ -3,7 +3,7 @@
     "check_process_jdoo": {
       "type": "standard",
        "command": "/etc/sensu/plugins/standard/check-process.sh -p jdoo",
-      "interval": 10,
+      "interval": 30,
       "subscribers": [
         "switches"
       ],

@@ -1,3 +1,10 @@
+- name: create a user called cumulus with user cn321
+  user:
+    name: cumulus
+    password: 'sf9fOtQLb5zJg'
+    createhome: yes
+    state: present
+
 - name: make sure docker deb is not installed
   apt:  name="docker-python" state=present
   ignore_errors: yes
@@ -11,12 +18,29 @@
     - docker-py==1.2.3
     - six>=1.4.0
 
+- name: install docker apt key
+  apt_key:
+    keyserver: "hkp://p80.pool.sks-keyservers.net:80"
+    id: "58118E89F3A912897C070ADBF76221572C52609D"
+
+- name: install docker engine
+  apt: name=docker-engine update_cache=yes
+
+- name: add list of users allowed to run docker commands
+  user: name=cumulus groups=cumulus,docker append=yes
+
+- name: create directory where sensu config files are placed
+  file: path="{{item}}" state=directory
+  with_items:
+    - /etc/sensu/conf.d
+    - /etc/sensu/handlers
+
 - name: run sensu container
   docker:
-    name: sensu1
-    image: "cumulus/sensu"
+    name: sensu
+    image: "hiroakis/docker-sensu-server"
     command: "/usr/bin/supervisord"
-    state: started
+    state: running
     expose:
       - 3000
       - 5671
@@ -27,3 +51,24 @@
       - 5671:5671
       - 15672:15672
       - 4567:4567
+    volumes:
+      - /etc/sensu/conf.d:/etc/sensu/conf.d/
+
+- name:  copy ssl cert/key to /etc/sensu/ssl on docker host
+  command: "docker cp sensu:/etc/sensu/ssl/{{item}} /tmp/"
+  with_items:
+    - cert.pem
+    - key.pem
+
+- name: fetch ssl cert
+  fetch: src=/tmp/{{item}} dest=./files/ flat=yes
+  with_items:
+    - cert.pem
+    - key.pem
+
+- name: install default sensu files on docker host for mounting by container
+  copy: src="{{item}}" dest=/etc/sensu/conf.d owner=root mode=744
+  with_items:
+    - logstash-handler.json
+  notify:
+    - restart sensu server

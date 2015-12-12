@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "bgp_peer_route_metrics": {
+      "type": "metric",
+      "standalone": true,
+       "command": "/etc/sensu/plugins/metrics/metrics-router-stats.rb",
+      "interval": 10,
+      "subscribers": [
+        "switches"
+      ],
+      "handle": false
+    }
+  }
+}

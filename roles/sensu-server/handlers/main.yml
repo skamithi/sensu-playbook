@@ -1,0 +1,2 @@
+- name: restart sensu server
+  command: "docker restart sensu"

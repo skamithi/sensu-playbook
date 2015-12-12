@@ -1,0 +1,21 @@
+- name: copy sensu checks to /etc/sensu/conf.d
+  copy: src="{{ item }}.json" dest=/etc/sensu/conf.d
+  with_items:
+    - check-bgp-peers
+    - check-bgp-routes
+    - check-cpu
+    - check-disk
+    - check-environmentals
+    - check-memory
+    - check-process-bgp
+    - check-process-jdoo
+    - check-process-ntp
+    - check-process-switchd
+    - check-process-watchquagga
+    - cpu-metrics
+    - disk-usage-metrics
+    - memory-usage-metrics
+    - bgp-route-peer-metrics
+  notify:
+    - restart sensu client
+

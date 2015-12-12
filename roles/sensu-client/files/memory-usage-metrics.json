@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "memory_metrics": {
+      "type": "metric",
+      "standalone": true,
+       "command": "/etc/sensu/plugins/metrics/memory-usage-metrics.rb",
+      "interval": 10,
+      "subscribers": [
+        "switches"
+      ],
+      "handlers": ["logstash"]
+    }
+  }
+}

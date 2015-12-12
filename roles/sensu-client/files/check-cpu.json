@@ -1,12 +1,14 @@
 {
   "checks": {
-    "check_process_ntp": {
+    "check_cpu": {
       "type": "standard",
-       "command": "/etc/sensu/plugins/standard/check-process.sh -p ntpd",
+      "standalone": true,
+       "command": "/etc/sensu/plugins/standard/check-cpu.rb -c 99 -w 95",
       "interval": 30,
       "subscribers": [
         "switches"
       ],
+      "refresh": 600,
       "handlers": ["logstash"]
     }
   }

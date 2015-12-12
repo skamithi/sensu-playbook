@@ -1,8 +1,9 @@
 {
   "checks": {
-    "check_process_ntp": {
+    "check_process_watchquagga": {
       "type": "standard",
-       "command": "/etc/sensu/plugins/standard/check-process.sh -p ntpd",
+      "standalone": true,
+       "command": "/etc/sensu/plugins/standard/check-process.sh -p watchquagga",
       "interval": 30,
       "subscribers": [
         "switches"

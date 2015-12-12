@@ -2,6 +2,7 @@
   "checks": {
     "disk_usage_metrics": {
       "type": "metric",
+      "standalone": true,
        "command": "/etc/sensu/plugins/metrics/disk-usage-metrics.rb",
       "interval": 60,
       "subscribers": [

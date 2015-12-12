@@ -1,0 +1,11 @@
+{
+  "handlers": {
+    "logstash": {
+      "type": "tcp",
+      "socket": {
+        "host": "10.50.100.250",
+        "port": 5000
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@
     "check_cpu": {
       "type": "standard",
        "command": "/etc/sensu/plugins/standard/check-cpu.rb -c 99 -w 95",
-      "interval": 10,
+      "interval": 30,
       "subscribers": [
         "switches"
       ],

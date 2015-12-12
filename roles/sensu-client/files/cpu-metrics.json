@@ -1,9 +1,10 @@
 {
   "checks": {
-    "disk_usage_metrics": {
+    "cpu_metrics": {
       "type": "metric",
-       "command": "/etc/sensu/plugins/metrics/disk-usage-metrics.rb",
-      "interval": 60,
+      "standalone": true,
+       "command": "/etc/sensu/plugins/metrics/cpu-metrics.rb",
+      "interval": 10,
       "subscribers": [
         "switches"
       ],

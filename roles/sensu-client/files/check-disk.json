@@ -1,8 +1,9 @@
 {
   "checks": {
-    "check_process_ntp": {
+    "check_disk": {
       "type": "standard",
-       "command": "/etc/sensu/plugins/standard/check-process.sh -p ntpd",
+      "standalone: true,
+       "command": "/etc/sensu/plugins/standard/check-disk.rb -w 85 -c 95",
       "interval": 30,
       "subscribers": [
         "switches"
