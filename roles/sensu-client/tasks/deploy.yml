@@ -62,20 +62,21 @@
   notify:
     - restart sensu client
 
-    #- name: add rsyslog imfile to rsyslog.conf
-    #  tags:
-    #    - sensu_client_config
-    #    - rsyslog_config
-    #  lineinfile:
-    #    dest: "/etc/rsyslog.conf"
-    #    regexp: "^\\$ModLoad imfile"
-    #    insertafter: "^\\$ModLoad imklog"
-    #    line: "\\$ModLoad imfile"
-    #  notify:
-    #    - restart rsyslog
-    #
+- name: add rsyslog imfile to rsyslog.conf
+  tags:
+    - rsyslog_config
+  lineinfile:
+    dest: "/etc/rsyslog.conf"
+    regexp: "^.+ModLoad imfile"
+    insertafter: "^.+ModLoad imklog"
+    line: "$ModLoad imfile"
+  notify:
+    - restart rsyslog
+
 - name: add rsyslog sensu file
   template: src=35-sensu.conf.j2 dest=/etc/rsyslog.d/35-sensu.conf
+  tags:
+    - rsyslog_config
   notify:
      - restart rsyslog
 
