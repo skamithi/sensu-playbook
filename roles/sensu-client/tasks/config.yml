@@ -1,5 +1,5 @@
 - name: copy sensu checks to /etc/sensu/conf.d
-  copy: src="{{ item }}.json" dest=/etc/sensu/conf.d
+  copy: src="checks/{{ item }}.json" dest=/etc/sensu/conf.d
   with_items:
     - check-bgp-peers
     - check-bgp-routes

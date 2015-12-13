@@ -1,0 +1,7 @@
+$InputFileName /var/log/sensu/sensu-client.log
+$InputFileTag sensu:
+$InputFileStateFile sensu-file
+$InputFileSeverity info
+$InputFileFacility local3
+$InputRunFileMonitor
+local3.* @@{{ logstash_server }}:{{ logstash_port }}

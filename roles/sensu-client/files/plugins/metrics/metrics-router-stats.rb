@@ -100,7 +100,7 @@ class RoutingProtocolMetrics < Sensu::Plugin::Metric::CLI::JSON
     json_output = JSON.parse(IO.popen(cmd_to_run).read())
     routes = json_output.fetch('routes').keys()
     output = {
-      'routes' => routes,
+    #  'routes' => routes,
       'route_count' => routes.length
     }.to_json
     send_event('route_stats', output)

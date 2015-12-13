@@ -51,21 +51,33 @@
   notify:
       - restart sensu client
 
-- name: rabbitmq template config - insecure
+- name: rabbitmq and client.json configs
   tags:
     - sensu_config
     - sensu_client_config
-  template: src=templates/rabbitmq.json.j2 dest=/etc/sensu/conf.d/rabbitmq.json
+  template: src="{{item}}.json.j2" dest="/etc/sensu/conf.d/{{item}}.json"
+  with_items:
+    - client
+    - rabbitmq
   notify:
     - restart sensu client
 
-- name: client.json template config
-  tags:
-    - sensu_config
-    - sensu_client_config
-  template: src=templates/client.json.j2  dest=/etc/sensu/conf.d/client.json
+    #- name: add rsyslog imfile to rsyslog.conf
+    #  tags:
+    #    - sensu_client_config
+    #    - rsyslog_config
+    #  lineinfile:
+    #    dest: "/etc/rsyslog.conf"
+    #    regexp: "^\\$ModLoad imfile"
+    #    insertafter: "^\\$ModLoad imklog"
+    #    line: "\\$ModLoad imfile"
+    #  notify:
+    #    - restart rsyslog
+    #
+- name: add rsyslog sensu file
+  template: src=35-sensu.conf.j2 dest=/etc/rsyslog.d/35-sensu.conf
   notify:
-    - restart sensu client
+     - restart rsyslog
 
 - name: install netshow (remove later)
   apt: name="netshow"
